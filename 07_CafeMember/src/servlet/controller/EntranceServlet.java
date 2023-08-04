@@ -2,6 +2,7 @@ package servlet.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import servlet.model.MemberDAO;
 import servlet.model.MemberVO;
 
 /*
@@ -24,31 +26,39 @@ import servlet.model.MemberVO;
 
 public class EntranceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ServletContext context;
-	List<MemberVO> list = Collections.synchronizedList(new ArrayList<>());
+//	private ServletContext context;
+//	List<MemberVO> list = Collections.synchronizedList(new ArrayList<>());
 
-	public void init(ServletConfig config) throws ServletException {		
+//	public void init(ServletConfig config) throws ServletException {		
 //		context = config.getServletContext();
 //		context.setAttribute("list", list);
-	}
+//	}
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setAttribute("list", list);
-		
+//		request.setAttribute("list", list);
+//		
 		String name = request.getParameter("name");
 		int age = request.getParameter("age")!=null ? Integer.parseInt(request.getParameter("age")) : 0;
 		String addr = request.getParameter("addr");
 		
-		if(name!=null) {
-			MemberVO vo = new MemberVO(name, age, addr);
-			list.add(vo);
+		// 2. vo 생성
+		MemberVO vo = new MemberVO(name, age, addr);
+//		list.add(vo);
+		
+		// 3. DAO로 데이터 전송
+		MemberDAO dao = new MemberDAO();
+		try {
+			dao.insertMember(vo);
+		} catch (SQLException e) {
 		}
 		
-		// 내비게이션
-		RequestDispatcher rdp = request.getRequestDispatcher("ViewMember.jsp");	
-		rdp.forward(request, response); // 이때 페이지로 이동
+		// 4. 내비게이션 --> ViewMemberServlet
+//		RequestDispatcher rdp = request.getRequestDispatcher("ViewMember.jsp");	
+//		rdp.forward(request, response); // 이때 페이지로 이동
+//		request.getRequestDispatcher("view").forward(request, response);
+		response.sendRedirect("view");
 	}
 
 	

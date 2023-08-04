@@ -46,19 +46,27 @@
             <button type="submit" class="btn btn-danger">입장하기</button>
         </form>
     </div>
-    <script>
-        const age = document.querySelector("#age");
-        
+    <script>        
         function checkData() {
             // 나이를 숫자로 입력하지 않았을 때 alert로 숫자를 입력하라고 메시지 띄우고
-            const regExp = /^[0-9]{1,}$/;
-            return regExp.test(age.value);
+            const regExp = /^[0-9]+$/;
+            const age = document.frm.age.value;
+            
+            if(isNaN(age)) {
+            	alert('숫자로 입력해 주세요.');
+            	return false;
+            } else {
+            	return true;
+            }
+            
+//            if(regExp.test(document.frm.age.value)) {
+//            	return true;
+//            } else {
+//            	alert('숫자로 입력해 주세요!');
+//            	return false;
+//            }
+            
         }
-
-        age.addEventListener('input', function() {
-            if(!checkData()) {
-                alert('숫자를 입력하세요.');
-        });
 
     </script>
 </body>
