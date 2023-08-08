@@ -30,7 +30,7 @@ public class UpdateServlet extends HttpServlet {
 		
 		request.setAttribute("dto", dto);
 		
-		request.getRequestDispatcher("views/update_result/jsp").forward(request, response);
+		request.getRequestDispatcher("views/update_result.jsp").forward(request, response);
 		
 	}
 
