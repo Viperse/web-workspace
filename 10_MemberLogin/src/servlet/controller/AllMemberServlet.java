@@ -19,11 +19,10 @@ public class AllMemberServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<MemberDTO> list = new ArrayList<>();
-		HttpSession session = request.getSession();
-		MemberDAO dao = new MemberDAO();
+//		MemberDAO dao = new MemberDAO();
 		try {
-			list = dao.showAllMember();
-			session.setAttribute("list", list);
+			list = MemberDAO.getInstance().showAllMember();
+			request.setAttribute("list", list);
 		} catch (SQLException e) {
 		}
 		

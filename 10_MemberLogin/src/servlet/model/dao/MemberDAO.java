@@ -12,14 +12,32 @@ import servlet.model.vo.MemberDTO;
 
 public class MemberDAO implements MemberDAOTemplate {
 	
-	public MemberDAO() {
+	// 싱글톤 패턴 - 클래스의 객체가 항상 하나만 존재하도록
+	/*
+	 * DAO를 반복적으로 생성하고 해제하는 것은 비효율적
+	 * 객체지향적 설계! 싱글톤 패턴은 객체지향적 설계 원칙 준수 -> 중앙에서 처리
+	 * 주의할 점은 싱글톤은 전역 상태를 가질 수 있으므로 오남용하면 애플리케이션의 복잡성이 증가
+	 * */
+	
+	private static MemberDAO dao = new MemberDAO();
+	private MemberDAO() {
 		try {
 			Class.forName(ServerInfo.DRIVER_NAME);
-			System.out.println("Driver Loading Success...!");
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}
 	}
+	public static MemberDAO getInstance() {
+		return dao;
+	}
+	
+//	public MemberDAO() {
+//		try {
+//			Class.forName(ServerInfo.DRIVER_NAME);
+//			System.out.println("Driver Loading Success...!");
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	@Override
 	public Connection getConnection() throws SQLException {
@@ -87,31 +105,24 @@ public class MemberDAO implements MemberDAOTemplate {
 	}
 
 	@Override
-	public MemberDTO findByIdName(String id) throws SQLException {
-		
+	public MemberDTO findByIdName(String id) throws SQLException {	
 		String query = "SELECT * FROM MEMBER WHERE ID = ?";
 		Connection conn = getConnection();
-		PreparedStatement st = conn.prepareStatement(query);
-		
+		PreparedStatement st = conn.prepareStatement(query);	
 		st.setString(1, id);
 		
-		ResultSet rs = st.executeQuery();
-		
+		ResultSet rs = st.executeQuery();	
 		MemberDTO dto = new MemberDTO();
 		
 		if(rs.next()) {
 			dto.setId(rs.getString("ID"));
 			dto.setPassword(rs.getString("PASSWORD"));
 			dto.setName(rs.getString("NAME"));
-			dto.setAddress("ADDR");
-			
-			return dto;
+			dto.setAddress(rs.getString("ADDR"));
 		}
 		
-		closeAll(rs, st, conn);
-		
-		
-		return null;
+		closeAll(rs, st, conn);	
+		return dto;
 	}
 
 	@Override

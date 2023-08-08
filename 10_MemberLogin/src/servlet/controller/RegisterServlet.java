@@ -23,10 +23,8 @@ public class RegisterServlet extends HttpServlet {
 		dto.setName(request.getParameter("name"));
 		dto.setAddress(request.getParameter("addr"));
 		
-		MemberDAO dao = new MemberDAO();
-		
 		try {
-			dao.registerMember(dto);
+			MemberDAO.getInstance().registerMember(dto);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("회원가입 실패");

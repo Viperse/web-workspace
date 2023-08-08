@@ -13,6 +13,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h2>로그인 정보</h2>
 	<p>ID : <%=dto.getId() %></p>
 	<p>PASSWORD : <%=dto.getPassword() %></p>
 	<p>이름 : <%=dto.getName() %></p>

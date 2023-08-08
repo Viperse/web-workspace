@@ -11,8 +11,10 @@
 </head>
 <body>
 	<h1>회원 관리 기능</h1>
-	
+	<%MemberDTO dto = new MemberDTO(); %>
+	<% dto = (MemberDTO) session.getAttribute("dto"); %>
 	<ul>
+		<%if(dto==null) { %>
 		<%-- 로그인이 되어 있지 않은 경우 --%>
 		<li><a href="views/register.html">회원가입</a></li>
 		<%-- 회원가입 : 아이디, 비밀번호, 이름, 주소 입력 받아서 
@@ -28,9 +30,9 @@
 		 --%>
 		
 		<%-- 로그인 되었을 때 --%>	
-		<%MemberDTO dto = new MemberDTO(); %>
-		<% dto = (MemberDTO) session.getAttribute("dto"); %>
-		<% if(dto!=null){ %>
+		
+		
+		<%} else { %>
 		<li><a href="views/search.html">회원검색</a></li>
 		<%--
 			회원 검색 : 검색할 아이디를 입력받아서 -> FindMemberServlet -> 검색 성공하면 view/find_ok.jsp (정보 출력)

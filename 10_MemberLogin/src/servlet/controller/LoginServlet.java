@@ -18,12 +18,12 @@ public class LoginServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		// 상태를 유지해야 하는 정보가 있을 때는 세션에 바인딩해 줘야 한다. ex) 로그인 정보, 장바구니 정보
 		
 		MemberDTO dto = new MemberDTO();
-		MemberDAO dao = new MemberDAO();
 		
 		try {
-			dto = dao.login(request.getParameter("id"), request.getParameter("password"));
+			dto = MemberDAO.getInstance().login(request.getParameter("id"), request.getParameter("password"));
 			session.setAttribute("dto", dto);
 		} catch (SQLException e) {
 		}

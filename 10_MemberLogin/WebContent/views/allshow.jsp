@@ -4,7 +4,7 @@
 <%@ page import="servlet.model.vo.MemberDTO" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 
-<% ArrayList<MemberDTO> list = (ArrayList) session.getAttribute("list"); %>
+<% ArrayList<MemberDTO> list = (ArrayList) request.getAttribute("list"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +15,7 @@
 <body>
     <div class="container">
 
-		<h2>전체 cafe 명단 리스트</h2>
+		<h2>전체 회원 명단 리스트</h2>
 		<table class="table">
 			<tr>
 				<th></th>

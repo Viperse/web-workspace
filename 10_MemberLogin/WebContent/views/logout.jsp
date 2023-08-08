@@ -1,3 +1,4 @@
+<%@page import="servlet.model.vo.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="javax.servlet.http.HttpSession" %>
@@ -8,11 +9,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-	<%session1.invalidate(); %>
+
+	<%
+	MemberDTO dto = (MemberDTO) session1.getAttribute("dto");
+	if(dto!=null) {
+	session1.invalidate(); %>
+<body onload="return logout()">
 	<script>
-		alert('로그아웃!');
-		location.href='../index.jsp';
+		function logout() {
+			alert('Logout!');
+			location.href="../index.jsp";
+		}
 	</script>
 </body>
+<%} %>
 </html>
