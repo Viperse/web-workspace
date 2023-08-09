@@ -9,5 +9,6 @@
 </head>
 <body>
 	<p>${dto.name}의 정보를 수정했습니다.</p>
+	<a href="/index.jsp">index로 이동</a>
 </body>
 </html>

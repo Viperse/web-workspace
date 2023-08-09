@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.dao.MemberDAO;
 import model.vo.MemberDTO;
@@ -26,9 +27,13 @@ public class UpdateServlet extends HttpServlet {
 		
 		try {
 			MemberDAO.getInstance().updateMember(dto);
+			HttpSession session = request.getSession();
+			if(session.getAttribute("dto")!=null) {
+				session.setAttribute("dto", dto);
+			}	
 		} catch (SQLException e) {}
 		
-		request.setAttribute("dto", dto);
+		
 		
 		request.getRequestDispatcher("views/update_result.jsp").forward(request, response);
 		

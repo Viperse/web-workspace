@@ -20,12 +20,14 @@ public class MemberDAO implements MemberDAOTemplate {
 	 * */
 	
 	private static MemberDAO dao = new MemberDAO();
+	
 	private MemberDAO() {
 		try {
 			Class.forName(ServerInfo.DRIVER_NAME);
 		} catch (ClassNotFoundException e) {
 		}
 	}
+	
 	public static MemberDAO getInstance() {
 		return dao;
 	}
@@ -155,7 +157,7 @@ public class MemberDAO implements MemberDAOTemplate {
 	public void updateMember(MemberDTO dto) throws SQLException {
 		
 		Connection conn = getConnection();
-		String query = "UPDATE MEMBER SET PASSWORD = ? AND NAME = ? AND ADDR = ? WHERE ID = ?";
+		String query = "UPDATE MEMBER SET PASSWORD = ?, NAME = ?, ADDR = ? WHERE ID = ?";
 		PreparedStatement st = conn.prepareStatement(query);
 		
 		st.setString(1, dto.getPassword());

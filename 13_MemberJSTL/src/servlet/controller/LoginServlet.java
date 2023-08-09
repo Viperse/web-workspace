@@ -30,11 +30,7 @@ public class LoginServlet extends HttpServlet {
 		} catch (SQLException e) {
 		}
 		
-		if(dto!=null) {
-			request.getRequestDispatcher("views/login_result.jsp").forward(request, response);
-		} else {
-			response.sendRedirect("index.jsp");
-		}
+		request.getRequestDispatcher("views/login_result.jsp").forward(request, response);
 	}
 
 	
