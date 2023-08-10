@@ -14,14 +14,14 @@ public class DispatcherMainTest {
 	 *    --> 추상화된 클래스(Action)으로 날라간다.
 	 *    --> 결국 클라이언트는 Factory로 하여금 구상객체를 만들도록 요청하는 것이고
 	 *    	  Factory는 요청에 해당하는 제품을 만들고 인터페이스로 전달한다.
-	 * 2) 인터페이스의 메소드를 호출하면 실질적으로 생성된 구생 객체가 드디어 핵심적인 일(비즈니스 로직 호출)을 진행!
+	 * 2) 인터페이스의 메소드를 호출하면 실질적으로 생성된 구상 객체가 드디어 핵심적인 일(비즈니스 로직 호출)을 진행!
 	 *    최종적으로 뷰의 화면의 경로를 리턴받는다.
 	 *    
 	 *    --> forward or sendRedirect로 응답
 	 * */
 	
 	public static void main(String[] args) {
-		String command = "INSERT";
+		String command = "DELETE";
 		ActionFactory factory = ActionFactory.getInstance();
 		Action action = factory.createAction(command);
 		
