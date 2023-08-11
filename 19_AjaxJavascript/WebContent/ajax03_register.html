@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="/register.do" method="post">
+        <h2>회원가입 하기</h2>
+        <label>ID : </label>
+        <input type="text" name="id" id="id">
+        <input type="button" value="중복체크" onclick="startRequest()">
+        <span id="idCheckView"></span>
+	        <!-- 
+	        	DB에 아이디가 있으면 ID 사용 블가!
+	        			  없으면 ID 사용 가능!
+	        	command : idCheck.do
+	        	component : idCheckController
+	        	dao : findByIdMember <-- 얘를 사용해도 되고
+	        		  아님 새로 만든다면 idExist <-- 만들어도 됨
+	        -->
+        <br>
+        <label>PASSWORD : </label>
+        <input type="password" name="password"><br>
+        <label>이름 :</label>
+        <input type="text" name="name"><br>
+        <label>주소: </label>
+        <input type="text" name="addr"><br>
+        <input type="submit" value="회원가입">
+    </form>
+    <script>
+        let xhr;
+        function startRequest() {
+            const id = document.querySelector("#id").value;
+            xhr =  new XMLHttpRequest();
+            xhr.onreadystatechange = callback;
+            xhr.open("get", "/idCheck.do?id=" + encodeURI(encodeURIComponent(id)));
+            xhr.send(null);
+        }
+
+        function callback() {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+            	const text = xhr.responseText;
+                document.querySelector("#idCheckView").innerHTML = "<br>" + decodeURI(decodeURIComponent(xhr.responseText));
+                if(text.includes('불가')) {
+                    document.querySelector("#idCheckView").style.color = 'red';
+                } else {
+                    document.querySelector("#idCheckView").style.color = 'green';
+                }
+                
+            }
+        }
+    </script>
+</body>
+</html>

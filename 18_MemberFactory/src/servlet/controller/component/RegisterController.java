@@ -20,6 +20,12 @@ public class RegisterController implements Controller {
 		MemberVO vo = new MemberVO(id, password, name, address);
 		MemberDAO.getInstance().registerMember(vo);
 		
+		// 데이터 바인딩 - request, session, context
+		// setAttribute
+		// request <-- 범위가 가장 좁아요
+		// session <-- 로그인하는 순간부터 로그아웃까지
+		// context <-- 범위가 가장 넓음~~ 거의 사용 X
+		
 		String path = "index.jsp";
 		
 		return new ModelAndView(path, true);
