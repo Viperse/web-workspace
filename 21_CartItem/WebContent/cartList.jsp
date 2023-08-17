@@ -11,7 +11,7 @@
     <h1>장바구니</h1>
     <a href="itemList.do">쇼핑 계속하기</a>
     <div>
-        <table border="1">
+        <table border="1" id="table">
             <tr>
                 <th>번호</th>
                 <th>상품이미지</th>
@@ -20,7 +20,7 @@
                 <th>수량</th>
                 <th><button>삭제</button></th>
             </tr>        
-            <tr>
+            <tr id="final">
                 <td colspan="6">총 결제 금액 : </td>
             </tr>
         </table>
@@ -51,6 +51,9 @@
                 tr.appendChild(td4);
                 tr.appendChild(td5);
                 tr.appendChild(td6);
+                const final = document.querySelector('#final');
+                const table = document.querySelector('#table');
+                table.insertBefore(tr, final);
             }
         }
     </script>
