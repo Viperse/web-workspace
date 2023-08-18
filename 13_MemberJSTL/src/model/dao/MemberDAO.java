@@ -65,7 +65,7 @@ public class MemberDAO implements MemberDAOTemplate {
 	@Override
 	public void registerMember(MemberDTO dto) throws SQLException {
 		
-		String query = "INSERT INTO MEMBER(ID, PASSWORD, NAME, ADDR) VALUES(?, ?, ?, ?)";
+		String query = "INSERT INTO MEMBER(ID, PASSWORD, NAME, ADDRESS) VALUES(?, ?, ?, ?)";
 		
 		Connection conn = getConnection();
 		PreparedStatement st = conn.prepareStatement(query);
@@ -98,7 +98,7 @@ public class MemberDAO implements MemberDAOTemplate {
 			dto.setId(rs.getString("ID"));
 			dto.setPassword(rs.getString("PASSWORD"));
 			dto.setName(rs.getString("NAME"));
-			dto.setAddress(rs.getString("ADDR"));
+			dto.setAddress(rs.getString("ADDRESS"));
 			
 			closeAll(rs, st, conn);
 			return dto;
@@ -120,7 +120,7 @@ public class MemberDAO implements MemberDAOTemplate {
 			dto.setId(rs.getString("ID"));
 			dto.setPassword(rs.getString("PASSWORD"));
 			dto.setName(rs.getString("NAME"));
-			dto.setAddress(rs.getString("ADDR"));
+			dto.setAddress(rs.getString("ADDRESS"));
 		}
 		
 		closeAll(rs, st, conn);	
@@ -143,7 +143,7 @@ public class MemberDAO implements MemberDAOTemplate {
 			dto.setId(rs.getString("id"));
 			dto.setPassword(rs.getString("password"));
 			dto.setName(rs.getString("name"));
-			dto.setAddress(rs.getString("ADDR"));
+			dto.setAddress(rs.getString("ADDRESS"));
 			
 			
 			list.add(dto);
@@ -157,7 +157,7 @@ public class MemberDAO implements MemberDAOTemplate {
 	public void updateMember(MemberDTO dto) throws SQLException {
 		
 		Connection conn = getConnection();
-		String query = "UPDATE MEMBER SET PASSWORD = ?, NAME = ?, ADDR = ? WHERE ID = ?";
+		String query = "UPDATE MEMBER SET PASSWORD = ?, NAME = ?, ADDRESS = ? WHERE ID = ?";
 		PreparedStatement st = conn.prepareStatement(query);
 		
 		st.setString(1, dto.getPassword());

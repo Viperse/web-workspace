@@ -6,56 +6,80 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 </head>
 <body>
     <h1>장바구니</h1>
     <a href="itemList.do">쇼핑 계속하기</a>
     <div>
-        <table border="1" id="table">
-            <tr>
-                <th>번호</th>
-                <th>상품이미지</th>
-                <th>상품명</th>
-                <th>상품가격</th>
-                <th>수량</th>
-                <th><button>삭제</button></th>
-            </tr>        
-            <tr id="final">
-                <td colspan="6">총 결제 금액 : </td>
-            </tr>
+        <table border="1" style="width:100%">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>상품이미지</th>
+                    <th>상품명</th>
+                    <th>상품가격</th>
+                    <th>수량</th>
+                    <th><button onclick="deleteStorage()">삭제</button></th>
+                </tr> 
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">총 결제 금액 : <span id="resultTotal"></span></td>
+                </tr>
+            </tfoot>          
         </table>
-        
+    </div>
     <script>
-       
-       let count = 1;
+        let amount = 1;
+        let totalPrice = 0;
+        refreshPage();
 
-        for(let i=0; i<=5; i++) {
-            if(localStorage.getItem('cart-'+i)!=null) {
-                let cart = localStorage.getItem('cart-'+i).split(',');
-				const tr = document.createElement('tr');
-                const td1 = document.createElement('td');
-                const td2 = document.createElement('td');
-                const td3 = document.createElement('td');
-                const td4 = document.createElement('td');
-                const td5 = document.createElement('td');
-                const td6 = document.createElement('td');
-                td1.innerHTML = `${i}`;
-                td2.innerHTML = <img src="${cart[2]}" />
-                td3.innerHTML = `${cart[0]}`;
-                td4.innerHTML = `${cart[1] * count}`;
-                td5.innerHTML = `${count}`;
-                td6.innerHTML = <input type="checkbox"/>
-                tr.appendChild(td1);
-                tr.appendChild(td2);
-                tr.appendChild(td3);
-                tr.appendChild(td4);
-                tr.appendChild(td5);
-                tr.appendChild(td6);
-                const final = document.querySelector('#final');
-                const table = document.querySelector('#table');
-                table.insertBefore(tr, final);
+        $('.up').on('click', function() {
+            $(this).next().html(eval($(this).next().html())+1);
+            amount = $(this).next().html();
+            totalPrice += eval($(this).parent().prev().html());
+            $('#resultTotal').html(totalPrice);
+        });
+
+        $('.down').on('click', function() {  
+            if(amount > 1) {
+                $(this).prev().html(eval($(this).prev().html())-1);
+                amount = $(this).prev().html();
+                totalPrice -= eval($(this).parent().prev().html());
+                $('#resultTotal').html(totalPrice);
+            }         
+        });
+
+       function refreshPage() {
+        let html = '';
+        let count = 0;
+            for(let key in localStorage) {
+                if(key === 'length') break;
+                const data = localStorage.getItem(key).split(",");
+                html += '<tr>' +
+                            '<td>' + ++count + '</td>' + '<td>' + '<img src=' + data[2] + ' width="150px" height="150px"></td>' +
+                            '<td>' + data[0] + '</td>' +
+                            '<td>' + data[1] + '</td>' +
+                            '<td><img src=img/up.jpg width="10px" height="10px" style=cursor:pointer; class=up><div>' + amount + '</div>' + '<img src=img/down.jpg width="10px" height="10px" style=cursor:pointer; class=down>' + '</td>' +
+                            '<td><input value='+key+' type="checkbox" class="deleteItem"></td>' +
+                        '</tr>';
+                totalPrice += eval(data[1]);
             }
-        }
+            $('tbody').append(html);
+            $('#resultTotal').html(totalPrice);
+       }
+
+       function deleteStorage() {
+                const check = document.querySelectorAll('.deleteItem');
+                for(let i=0; i<check.length; i++) {
+                    if(check[i].checked === true) {
+                        localStorage.removeItem(check[i].value);
+                        location.reload();
+                    }
+                }
+            }
     </script>
 </body>
 </html>

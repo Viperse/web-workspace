@@ -23,7 +23,7 @@ public class RegisterServlet extends HttpServlet {
 		dto.setId(request.getParameter("id"));
 		dto.setPassword(request.getParameter("password"));
 		dto.setName(request.getParameter("name"));
-		dto.setAddress(request.getParameter("addr"));
+		dto.setAddress(request.getParameter("address"));
 		
 		try {
 			MemberDAO.getInstance().registerMember(dto);
@@ -36,7 +36,7 @@ public class RegisterServlet extends HttpServlet {
 		session.setAttribute("dto", dto);
 		
 		if(session!=null) {
-			response.sendRedirect("AllMemberServlet");
+			response.sendRedirect("/member/all");
 		} else {
 			response.sendRedirect("index.jsp");
 		}
