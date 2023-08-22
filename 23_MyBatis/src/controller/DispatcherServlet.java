@@ -36,11 +36,7 @@ public class DispatcherServlet extends HttpServlet {
 					request.getRequestDispatcher(mv.getPath()).forward(request, response);
 				}
 			}
-		} catch (Exception e) {
-			System.out.println("servlet :: ");
-			e.printStackTrace();
-			System.out.println("------------------");
-		}
+		} catch (Exception e) {}
 		
 	}
 	

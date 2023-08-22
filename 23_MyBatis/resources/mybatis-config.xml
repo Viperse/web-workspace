@@ -13,8 +13,8 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="member.model.vo.StudentVO" alias="Student"/>
-		<typeAlias type="member.model.vo.DepartmentVO" alias="Department"/>
+		<typeAlias type="model.vo.StudentVO" alias="Student"/>
+		<typeAlias type="model.vo.DepartmentVO" alias="Department"/>
 	</typeAliases>
 	
 	<environments default="development">

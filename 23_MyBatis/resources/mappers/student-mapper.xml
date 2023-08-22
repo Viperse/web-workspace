@@ -28,19 +28,11 @@
  		FROM TB_STUDENT
  		JOIN TB_DEPARTMENT USING(DEPARTMENT_NO)
  		<trim prefix="WHERE" prefixOverrides="AND|OR">
- 			<if test="studentNo != null">
+ 			<if test="search != null">
  				STUDENT_NO LIKE '%'||#{search}||'%'
- 			</if>
- 			<if test="studentName != null">
  				OR STUDENT_NAME LIKE '%'||#{search}||'%'
- 			</if>
- 			<if test="studentAddress != null">
  				OR STUDENT_ADDRESS LIKE '%'||#{search}||'%'
- 			</if>
- 			<if test="departmentName != null">
  				OR DEPARTMENT_NAME LIKE '%'||#{search}||'%'
- 			</if>
- 			<if test="category != null">
  				OR CATEGORY LIKE '%'||#{search}||'%'
  			</if>
  		</trim>	
